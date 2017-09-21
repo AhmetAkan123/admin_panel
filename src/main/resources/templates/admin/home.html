@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+
+<body>
+
+<th:block layout:fragment="breadcrumb">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Ana Title</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a th:href="@{/admin/home}">Admin</a>
+                </li>
+                <li class="active">
+                    <a th:href="@{/admin/home}"><strong>Ana Sayfa</strong></a>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="content">
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Role Türlerine Göre Üye Dağılımı</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div>
+                            <canvas id="doughnutChart" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="page_scripts">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            var doughnutData = {
+                labels: ["Temel","Bronze","Gümüş","Altın"],
+                datasets: [{
+                    data: [ [[${roleMetal}]],[[${roleBronze}]],[[${roleSilver}]],[[${roleGold}]] ],
+                    backgroundColor: ["#6B6B6B","#CA9667","#DFDFDF","#FFED12"]
+                }]
+            } ;
+
+            var doughnutOptions = {
+                responsive: true
+            };
+
+            var ctx4 = document.getElementById("doughnutChart").getContext("2d");
+            new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
+        });
+        /*]]>*/
+    </script>
+</th:block>
+
+</body>
+</html>

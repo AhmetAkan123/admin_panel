@@ -1,0 +1,16 @@
+package com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums;
+
+public enum AccountSheetType {
+
+    BALANCESHEET,
+    INCOMESHEET,
+    CASHFLOWSHEET,
+    FUNDFLOWSHEET,
+    VERTICALANALYSISBALANCESHEET,
+    VERTICALANALYSISINCOMESHEET,
+    HORIZONTALANALYSISBALANCESHEET,
+    HORIZONTALANALYSISINCOMESHEET,
+    RATIOSHEET
+
+}
+

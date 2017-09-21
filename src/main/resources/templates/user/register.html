@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firms  | Kayıt Ol</title>
+    <link rel="stylesheet" th:href="@{/libs/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/libs/font-awesome/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/libs/css/inspinia/plugins/iCheck/custom.css}">
+    <link rel="stylesheet" th:href="@{/libs/css/inspinia/animate.css}">
+    <link rel="stylesheet" th:href="@{/libs/css/inspinia/style.css}">
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
+                <h1 class="logo-name">Firms</h1>
+            </div>
+            <p>Bir Hesap Yaratın</p>
+            <form autocomplete="off" action="#" th:action="@{/user/register}" th:object="${user}" method="post" class="m-t" role="form" id="registerForm">
+
+                <div th:if="${#fields.hasErrors()}" class="alert alert-danger">
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+                    <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Username error</div>
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" th:field="*{userName}" placeholder="Kullanıcı Adı" class="form-control" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{name}" placeholder="Adınız Soyadınız" class="form-control" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{email}" placeholder="Email" class="form-control" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" th:field="*{password}" placeholder="Şifre" class="form-control" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{address}" placeholder="Adres" class="form-control" required="required" size="5">
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone-number" name="phone-number" th:field="*{telephone}" placeholder="Telefon Numarası" class="form-control" required="required">
+                </div>
+                <input type="hidden" name="registerDate" id="registerDate" th:value="${#dates.format(#dates.createNow(), 'dd/MM/yyyy')}" />
+                <div class="form-group">
+                    <div class="checkbox i-checks">
+                        <label><input type="checkbox" required="required"><i></i>Kabul Ediyorum Şartlarınızı</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary full-width m-b">Kayıt Ol</button>
+                <p class="text-muted text-center"><small>Üyeliğiniz var mı?</small></p>
+                <a class="btn btn-sm btn-white btn-block" th:href="@{/login}">Giriş Yap</a>
+            </form>
+        </div>
+    </div>
+
+
+    <script th:src="@{/libs/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/libs/js/bootstrap.min.js}">></script>
+    <script th:src="@{/libs/js/inspinia/plugins/iCheck/icheck.min.js}"></script>
+    <script th:src="@{/libs/js/jquery.mask.min.js}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+
+        $("#phone-number").mask("(999) 999-99-99");
+    </script>
+
+</body>
+</html>

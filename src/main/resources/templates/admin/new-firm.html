@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+
+<body>
+
+<th:block layout:fragment="breadcrumb">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Ana Title</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a th:href="@{/admin/home}">Admin</a>
+                </li>
+                <li class="active">
+                    <a th:href="@{/admin/home}">Kullanıcılar</a>
+                </li>
+                <li class="active">
+                    <a th:href="@{'/admin/user/show/' + ${user.id}}"><span th:text="${user.userName}"></span></a>
+                </li>
+                <li class="active">
+                    <a href="#"><strong>Firma Ekle</strong></a>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="content">
+
+    <div class="wrapper wrapper-content">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Firma Bilgileri</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+
+                            <form autocomplete="off" action="#" th:action="@{'/admin/user/' + ${user.id} + '/firm'}"
+                                  th:object="${firm}" method="POST" class="form-horizontal">
+
+                                <div class="row col-md-6">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Ad</label>
+                                        <div class="col-md-10">
+                                            <input type="text" th:field="*{firmname}" placeholder="Firma Adı"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Adres</label>
+                                        <div class="col-md-10">
+                                            <input type="text" th:field="*{firmaddress}" placeholder="Adres"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Telefon</label>
+                                        <div class="col-md-10">
+                                            <input type="text" th:field="*{firmtelephone}" placeholder="Telefon"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Web Sitesi</label>
+                                        <div class="col-md-10">
+                                            <input type="text" th:field="*{firmwebaddress}" placeholder="Web Sitesi"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Sektör</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control" th:field="*{firmsector}">
+                                                <option th:each="sector : ${sectors}" th:value="${sector.id}" th:text="${sector.sectorCode + ' - ' + sector.sectorName}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row col-md-6">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Yönetici</label>
+                                        <div class="col-md-10">
+                                            <input type="text" th:field="*{firmmanager}" placeholder="Yönetici"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Vergi Dairesi</label>
+                                        <div class="col-md-10">
+                                            <input type="text" th:field="*{firmTaxOffice}" placeholder="Vergi Dairesi"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Vergi Numarası</label>
+                                        <div class="col-md-10">
+                                            <input type="text" th:field="*{firmTexNumber}" placeholder="Vergi Numarası"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Gizlilik</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control" th:field="*{visible}">
+                                                <option th:value="true">Görünür</option>
+                                                <option th:value="false">Gizli</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row col-md-12">
+
+                                    <div class="hr-line-dashed"></div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-12 col-sm-offset-10">
+                                            <button class="btn btn-primary" type="submit">Kaydet</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

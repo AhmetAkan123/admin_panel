@@ -1,0 +1,36 @@
+/*Üye Profil Sayfası*/
+.user-profile {
+    font-size: 16px;
+}
+
+/*Üye Profil Sayfası*/
+.table > thead > tr > th.userShowTh {
+    border-bottom: 1px solid rgba(221, 221, 221, 0);
+}
+
+.profileBtn {
+    border-radius: 0px;
+    margin: 5px;
+    width: 100px;
+}
+
+.profile-buttons {
+    text-align: center;
+}
+
+/*Notification - Success*/
+#profileNotification {
+    font-size: 16px;
+    text-align: center;
+}
+
+#profileNotificationCloseButton {
+    float: right;
+    font-size: 20px;
+}
+
+#profileNotificationCloseButton:hover,#profileNotificationCloseButton:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

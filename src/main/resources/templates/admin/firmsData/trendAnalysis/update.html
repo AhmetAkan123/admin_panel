@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+
+<body>
+
+<th:block layout:fragment="breadcrumb">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Firms Admin</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a th:href="@{/admin/home}">Admin</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/firmsData/financialRisks/list}">Firms Data</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/firmsData/trendAnalysis/list}">Trend Analizleri</a>
+                </li>
+                <li class="active">
+                    <a href="#"><strong>Güncelle</strong></a>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="content">
+
+    <div class="wrapper wrapper-content">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+
+                    <div class="ibox-content">
+                        <form autocomplete="off" action="#" th:action="@{/admin/firmsData/trendAnalysis}"  th:object="${trendAnalys}" method="POST" class="form-horizontal">
+
+                            <input type="hidden" th:field="*{id}">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Yıl</label>
+                                <div class="col-md-4">
+                                    <input type="text" th:field="*{year}" placeholder="Yıl" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Sektör Kodu</label>
+                                <div class="col-md-4">
+                                    <select class="form-control" th:field="*{sectorCode}">
+                                        <option th:each="code : ${sectors}" th:value="${code.sectorCode}" th:text="${code.sectorCode}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Hesap Özet Kodu</label>
+                                <div class="col-md-4">
+                                    <input type="text" th:field="*{accountSheetCode}" placeholder="Hesap Özet Kodu" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Sektör Türü</label>
+                                <div class="col-md-4">
+                                    <select class="form-control" th:field="*{accountType}">
+                                        <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).BALANCESHEET}">Bilanço</option>
+                                        <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).INCOMESHEET}">Gelir Tablosu</option>
+                                        <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).CASHFLOWSHEET}">Nakit Akım Tabosu</option>
+                                        <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).FUNDFLOWSHEET}">Fon Akım Tablosu</option>
+                                        <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).VERTICALANALYSISBALANCESHEET}">Bilanço Dikey Analiz Tablosu</option>
+                                        <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).VERTICALANALYSISINCOMESHEET}">Gelir Tablosu Dikey Analiz Tablosu</option>
+                                        <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).HORIZONTALANALYSISBALANCESHEET}">Bilanço Yatay Analiz Tablosu</option>
+                                        <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).HORIZONTALANALYSISINCOMESHEET}">Gelir Tablosu Yatay Analiz Tablosu</option>
+                                        <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).RATIOSHEET}">Rasyo Tablosu</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">Kaydet</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</th:block>
+
+</body>
+</html>

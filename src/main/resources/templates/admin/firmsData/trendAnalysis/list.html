@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+
+<body>
+
+<th:block layout:fragment="breadcrumb">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Firms Admin</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a th:href="@{/admin/home}">Admin</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/firmsData/financialRisks/list}">Firms Data</a>
+                </li>
+                <li class="active">
+                    <a th:href="@{/admin/firmsData/trendAnalysis/list}"><strong>Trend Analizi</strong></a>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="content">
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+
+        <div class="row">
+
+            <div class="col-lg-12 m-b-sm notification">
+                <div id="profileNotification">
+                    <div class="bg-info p-sm" th:if="${trendAnalysisRegisterSuccess}">
+                        <span id="profileNotificationCloseButton">&times;</span>
+                        <span><i class="fa fa-check-square-o" aria-hidden="true"></i>   Trend Analizi Başarıyla Eklendi</span>
+                    </div>
+                    <div class="bg-warning p-sm" th:if="${trendAnalysisDeleteSuccess}">
+                        <span id="profileNotificationCloseButton">&times;</span>
+                        <span><i class="fa fa-check-square-o" aria-hidden="true"></i>   Trend Analizi Başarıyla Silindi</span>
+                    </div>
+                    <div class="bg-info p-sm" th:if="${trendAnalysisUpdateSuccess}">
+                        <span id="profileNotificationCloseButton">&times;</span>
+                        <span><i class="fa fa-check-square-o" aria-hidden="true"></i>   Trend Analizi Başarıyla Güncellendi</span>
+                    </div>
+                    <div class="bg-danger p-sm" th:if="${trendAnalysisFailure}">
+                        <span id="profileNotificationCloseButton">&times;</span>
+                        <span><i class="fa fa-check-square-o" aria-hidden="true"></i>   İşlem Sırasında Bir Hata Oluştu</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Yeni Trend Analizi</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form autocomplete="off" action="#" th:action="@{/admin/firmsData/trendAnalysis}"  th:object="${trendAnalys}" method="POST"  class="form-inline">
+
+                            <input type="hidden" th:field="*{id}">
+
+
+                            <div class="form-group">
+                                <label for="year" class="sr-only">Yıl</label>
+                                <input type="text" th:field="*{year}" placeholder="Yıl" id="year"
+                                       class="form-control">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="value" class="sr-only">Sektör Kodu</label>
+                                <select class="form-control" th:field="*{sectorCode}">
+                                    <option th:each="code : ${sectors}" th:value="${code.sectorCode}" th:text="${code.sectorCode}"></option>
+                                </select>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="value" class="sr-only">Hesap Özet Kodu</label>
+                                <input type="text" th:field="*{accountSheetCode}" placeholder="Hesap Özet Kodu" id="value"
+                                       class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="value" class="sr-only">Hesap Türü</label>
+                                <select class="form-control" th:field="*{accountType}">
+                                    <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).BALANCESHEET}">Bilanço</option>
+                                    <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).INCOMESHEET}">Gelir Tablosu</option>
+                                    <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).CASHFLOWSHEET}">Nakit Akım Tabosu</option>
+                                    <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).FUNDFLOWSHEET}">Fon Akım Tablosu</option>
+                                    <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).VERTICALANALYSISBALANCESHEET}">Bilanço Dikey Analiz Tablosu</option>
+                                    <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).VERTICALANALYSISINCOMESHEET}">Gelir Tablosu Dikey Analiz Tablosu</option>
+                                    <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).HORIZONTALANALYSISBALANCESHEET}">Bilanço Yatay Analiz Tablosu</option>
+                                    <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).HORIZONTALANALYSISINCOMESHEET}">Gelir Tablosu Yatay Analiz Tablosu</option>
+                                    <option th:value="${T(com.bsmart.application.backend.firmsweb.Entity.FirmsBackEndDbEntities.Enums.AccountSheetType).RATIOSHEET}">Rasyo Tablosu</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="value" class="sr-only">Hesap Bakiyesi</label>
+                                <input type="text" th:field="*{value}" placeholder="Hesap Bakiyesi" id="value"
+                                       class="form-control">
+                            </div>
+                            <span class="pull-right">
+											<button class="btn btn-white" type="submit">Ekle</button>
+										</span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Sektör Listesi</h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th>Yıl</th>
+                                    <th>Sektör Kodu</th>
+                                    <th>Account Sheet Code</th>
+                                    <th>Hesap Türü</th>
+                                    <th>Hesap Bakiyesi</th>
+                                    <th>Seçenek</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="gradeX" th:each="trend : ${trendAnalysis}">
+                                    <td th:text="${trend.year}"> </td>
+                                    <td th:text="${trend.sectorCode}"></td>
+                                    <td th:text="${trend.accountSheetCode}"></td>
+                                    <td th:text="${trend.accountSheetTypeHumanized}"></td>
+                                    <td th:text="${trend.value}"></td>
+                                    <td>
+
+                                        <div class="profile-buttons">
+                                            <a th:href="${'/admin/firmsData/trendAnalysis/update/ ' + trend.id}"><i class="fa fa-pencil text-warning" aria-hidden="true"></i></a> |
+                                            <a data-toggle="modal" data-target="#deleteTrendAnalysis" class="modalBtn"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>
+                                        </div>
+
+                                        <div class="modal inmodal" id="deleteTrendAnalysis" tabindex="-1" role="dialog"  aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content animated fadeIn">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                        <i class="fa fa-exclamation-triangle modal-icon"></i>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p style="font-size: 18px; text-align: center">"<span class="font-bold" th:text="${trend.accountSheetCode}"></span>" Kod Numarasına Sahip Dikey Oranı Silmek İstediğinize Emin misiniz ?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a><span class="btn btn-primary profileBtn" data-dismiss="modal">Hayır</span></a>
+                                                        <a th:href="${'/admin/firmsData/trendAnalysis/delete/ ' + trend.id}"><span class="btn btn-danger profileBtn">Evet</span></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</body>
+</html>

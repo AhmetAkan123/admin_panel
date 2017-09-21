@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firms  | Yetki Hatası</title>
+    <link rel="stylesheet" th:href="@{/libs/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/libs/font-awesome/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/libs/css/inspinia/plugins/iCheck/custom.css}">
+    <link rel="stylesheet" th:href="@{/libs/css/inspinia/animate.css}">
+    <link rel="stylesheet" th:href="@{/libs/css/inspinia/style.css}">
+</head>
+
+<body class="gray-bg">
+
+
+    <div class="middle-box text-center animated fadeInDown">
+
+        <h1>403</h1>
+        <h3 class="font-bold">Yetki Kısıtlaması</h3>
+
+        <div class="error-desc">
+            Merhaba <span th:utext="${currentUser.userName}"></span><br/>
+            Yetkiniz Olmayan Bir Sayfaya Giriş Yapmaya Çalıştınız<br/>
+            Ana Sayfaya Dönebilirsiniz <br/><a th:href="@{/}" class="btn btn-primary m-t">Ana Sayfa</a>
+        </div>
+    </div>
+
+<!-- Mainly scripts -->
+<script th:src="@{/libs/js/jquery-3.1.1.min.js}"></script>
+<script th:src="@{/libs/js/bootstrap.min.js}">></script>
+
+</body>
+
+</html>

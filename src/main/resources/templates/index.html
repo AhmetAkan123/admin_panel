@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Firms | asd</title>
+    </head>
+    <body>
+        <h1>Hoşgeldin <span th:utext="${currentUser.userName}"></span> (<span th:utext="${currentUser.email}"></span>)</h1>
+        <h1>şimdilik boş buralar</h1>
+        <a th:href="@{/logout}">Çıkış Yap</a>
+    </body>
+</html>

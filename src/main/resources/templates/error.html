@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firms  | Yetki Hatası</title>
+    <link rel="stylesheet" th:href="@{/libs/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/libs/font-awesome/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/libs/css/inspinia/plugins/iCheck/custom.css}">
+    <link rel="stylesheet" th:href="@{/libs/css/inspinia/animate.css}">
+    <link rel="stylesheet" th:href="@{/libs/css/inspinia/style.css}">
+</head>
+
+<body class="gray-bg">
+
+
+<div class="middle-box text-center animated fadeInDown">
+
+    <h1>:(</h1><br/>
+    <h3 class="font-bold">Bir Hata İle Karşılaşıldı</h3>
+
+    <div class="error-desc">
+        <h2 th:text="${title}">Title</h2><br/>
+        <div>
+            Beklenmedik bir hata oluştu
+        </div>
+        <!--<div th:text="${message}">No Message</div>-->
+        <!--<div th:text="${exception}">No exception</div>-->
+        <!--<div th:if="${user}" th:text="${user.userName}"></div>-->
+        <!--<div th:if="${user}" th:text="${user.email}"></div>-->
+        <!--<div th:if="${user}" th:text="${user.lastLogin}"></div>-->
+        <!--<div th:if="${url}" th:text="${url}">No url available</div>-->
+        <!--<div>Please contact <a th:if="${support}" th:href="@{mailto:{mail}(mail=${support},subject=${exception},body=${message})}">support</a> with the above information.</div>-->
+        Ana Sayfaya Dönebilirsiniz <br/>
+        <div sec:authorize="hasAuthority('role_super_admin')">
+            <a th:href="@{/admin/home}" class="btn btn-primary m-t">Admin Ana Sayfa</a>
+        </div>
+
+        <div sec:authorize="hasAnyAuthority('role_metal', 'role_bronze', 'role_silver', 'role_gold')">
+            <a th:href="@{/}" class="btn btn-primary m-t">Ana Sayfa</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script th:src="@{/libs/js/jquery-3.1.1.min.js}"></script>
+<script th:src="@{/libs/js/bootstrap.min.js}">></script>
+
+</body>
+
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+
+
+<body>
+
+        <th:block layout:fragment="breadcrumb">
+
+            <div class="row wrapper border-bottom white-bg page-heading" xmlns:th="http://www.thymeleaf.org">
+                <div class="col-lg-12">
+                    <h2>Firms Admin</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a th:href="@{/admin/home}">Admin</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/admin/user/list}">Kullanıcılar</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/admin/user/list}">Kullanıcı Listesi</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/admin/user/list}">Kullanıcı Profili</a>
+                        </li>
+                        <li>
+                            <a href="#"><strong><span th:text="${user.userName}"></span></strong></a>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+
+        </th:block>
+        <th:block layout:fragment="content">
+
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+                <div class="row">
+
+                    <div class="col-lg-12 m-b-sm notification">
+                        <div id="profileNotification">
+                            <div class="bg-info p-sm" th:if="${firmRegisterSuccess}">
+                                <span id="profileNotificationCloseButton">&times;</span>
+                                <span><i class="fa fa-check-square-o" aria-hidden="true"></i>   Firma Başarıyla Eklendi</span>
+                            </div>
+                            <div class="bg-warning p-sm" th:if="${firmDeleteSuccess}">
+                                <span id="profileNotificationCloseButton">&times;</span>
+                                <span><i class="fa fa-check-square-o" aria-hidden="true"></i>   Firma Başarıyla Silindi</span>
+                            </div>
+                            <div class="bg-info p-sm" th:if="${firmUpdateSuccess}">
+                                <span id="profileNotificationCloseButton">&times;</span>
+                                <span><i class="fa fa-check-square-o" aria-hidden="true"></i>   Firma Başarıyla Güncellendi</span>
+                            </div>
+
+                            <div class="bg-info p-sm" th:if="${userUpdateSuccess}">
+                                <span id="profileNotificationCloseButton">&times;</span>
+                                <span><i class="fa fa-check-square-o" aria-hidden="true"></i>   Üye Başarıyla Güncellendi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Kullanıcı Bilgileri</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+
+                                <div class="row">
+                                    <div>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th class="userShowTh"></th>
+                                                <th class="userShowTh"></th>
+                                                <th class="userShowTh"></th>
+                                                <th class="userShowTh"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="col-md-2 font-bold text-right user-profile">Kullanıcı Adı :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${user.userName}"></span></td>
+                                                <td class="col-md-2 font-bold text-right user-profile">Email :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${user.email}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-2 font-bold text-right user-profile">Ad Soyad :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${user.name}"></span></td>
+                                                <td class="col-md-2 font-bold text-right user-profile">Telefon :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${user.telephone}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-2 font-bold text-right user-profile">Üyelik Durumu :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${user.tokenHumanized}"></span></td>
+                                                <td class="col-md-2 font-bold text-right user-profile">Adres :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${user.address}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-2 font-bold text-right user-profile">Üyelik Tipi :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${user.roleHumanized}"></span></td>
+                                                <td class="col-md-2 font-bold text-right user-profile">Kayıt Tarihi :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${{user.registerDate}}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-2 font-bold text-right user-profile">Maksimum Firma Sayısı :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${user.firmCount}"></span></td>
+                                                <td class="col-md-2 font-bold text-right user-profile">Bitiş Tarihi :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${{user.expiryDate}}"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-2 font-bold text-right user-profile">Sahip Olduğu Firma Sayısı :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${user.totalFirmCount}"></span></td>
+                                                <td class="col-md-2 font-bold text-right user-profile">Son Giriş Tarihi :</td>
+                                                <td class="col-md-4 user-profile"><span th:text="${user.lastLogin}"></span></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+
+
+                                        <div class="row col-md-12 text-right">
+                                            <a th:href="${'/admin/user/' + user.id + '/firm/new'}"><span class="font-bold p-xs m-b bg-primary">Yeni Firma Ekle</span></a>
+                                            <a th:href="${'/admin/user/update/' + user.id}"><span class="font-bold p-xs m-b bg-warning">Güncelle</span></a>
+                                            <a data-toggle="modal" data-target="#myModal4"><span class="font-bold p-xs m-b bg-danger">Sil</span></a>
+                                            <div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content animated fadeIn">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                            <i class="fa fa-exclamation-triangle modal-icon"></i>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p style="font-size: 18px; text-align: center">"<span class="font-bold" th:text="${user.userName}"></span>" Kullanıcı Adına Sahip Üyeyi Silmek İstediğinize Emin misiniz ?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a><span class="btn btn-primary profileBtn" data-dismiss="modal">Hayır</span></a>
+                                                            <a th:href="${'/admin/user/delete/' + user.id}"><span class="btn btn-danger profileBtn">Evet</span></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Firmalar</h5>
+                            </div>
+                            <div class="ibox-content">
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
+                                        <tr>
+                                            <th>Sektör</th>
+                                            <th>Adı</th>
+                                            <th>Yönetici</th>
+                                            <th>Telefon</th>
+                                            <th>Adres</th>
+                                            <th>Web Sitesi</th>
+                                            <th>Vergi Dairesi</th>
+                                            <th>Vergi Numarası</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="gradeX" th:each="firm : ${user.userFirms}">
+                                            <td th:text="${firm.firmsector.sectorName}"></td>
+                                            <td th:text="${firm.firmname}"></td>
+                                            <td th:text="${firm.firmmanager}"></td>
+                                            <td th:text="${firm.firmtelephone}"></td>
+                                            <td th:text="${firm.firmaddress}"></td>
+                                            <td th:text="${firm.firmwebaddress}"></td>
+                                            <td th:text="${firm.firmTaxOffice}"></td>
+                                            <td th:text="${firm.firmTexNumber}"></td>
+                                            <td>
+                                                <div class="profile-buttons">
+                                                    <a th:href="${'/admin/user/update/' + user.id + '/firm/' + firm.id}"><i class="fa fa-pencil text-warning" aria-hidden="true"></i></a> |
+                                                    <a data-toggle="modal" data-target="#deleteFirm" class="modalBtn"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>
+                                                </div>
+
+                                                <div class="modal inmodal" id="deleteFirm" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content animated fadeIn">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                <i class="fa fa-exclamation-triangle modal-icon"></i>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p style="font-size: 18px; text-align: center">"<span class="font-bold" th:text="${firm.firmname}"></span>" Adına Sahip Firmayı Silmek İstediğinize Emin misiniz ?</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a><span class="btn btn-primary profileBtn" data-dismiss="modal">Hayır</span></a>
+                                                                <a th:href="${'/admin/user/delete/' + user.id + '/firm/' + firm.id}"><span class="btn btn-danger profileBtn">Evet</span></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </th:block>
+
+</body>
+</html>
